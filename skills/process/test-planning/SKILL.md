@@ -1,14 +1,6 @@
 ---
 name: test-planning
 description: Define scope, risks, and approach for testing a change or release.
-metadata:
-  audience:
-    - dev-teams
-  maturity: draft
-  tags:
-    - qa
-    - planning
-    - risk
 ---
 
 # Test Planning

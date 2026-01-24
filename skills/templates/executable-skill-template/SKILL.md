@@ -1,10 +1,10 @@
 ---
-name: skill-template
-description: Template for defining a QA skill with clear usage guidance.
+name: executable-skill-template
+description: Template for defining a skill with executable scripts.
 disable-model-invocation: true
 ---
 
-# Skill Title
+# Executable Skill Title
 
 Short summary of what this skill does and when to use it.
 
@@ -14,11 +14,12 @@ Short summary of what this skill does and when to use it.
 
 ## Usage
 - How to apply this skill or invoke scripts
+- Example: `scripts/run-checks.sh <scope>`
 
 ## Executable
-- Run `scripts/<script-name>` with required arguments
+- Run `scripts/run-checks.sh` with required arguments
 - Note any required environment variables or permissions
-- Example: `scripts/run-checks.sh --scope api`
+- Example: `scripts/run-checks.sh api`
 
 ## Instructions
 - Step-by-step guidance for applying the skill
