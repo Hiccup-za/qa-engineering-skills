@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: 📥 Checkout
+        uses: actions/checkout@v6
+
+      - name: 🔍 Read changelog version
+        id: changelog
+        uses: release-flow/keep-a-changelog-action@v3
+        with:
+          command: query
+          version: latest
+
+      - name: 🏷️ Check if tag exists
+        id: tag
+        uses: mukunku/tag-exists-action@v1.7.0
+        with:
+          tag: v${{ steps.changelog.outputs.version }}
+
+      - name: 📦 Create release artifacts
+        if: steps.tag.outputs.exists == 'false'
+        run: |
+          version="${{ steps.changelog.outputs.version }}"
+          git archive --format=tar.gz -o "qa-skills-${version}.tar.gz" HEAD
+          git archive --format=zip -o "qa-skills-${version}.zip" HEAD
+
+      - name: 🚢 Create GitHub release
+        if: steps.tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.changelog.outputs.version }}
+          name: v${{ steps.changelog.outputs.version }}
+          body: ${{ steps.changelog.outputs.release-notes }}
+          files: |
+            qa-skills-${{ steps.changelog.outputs.version }}.tar.gz
+            qa-skills-${{ steps.changelog.outputs.version }}.zip
