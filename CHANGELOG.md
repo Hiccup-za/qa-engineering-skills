@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-01-25
+
+### Changed
+- Updated skills root path configuration to use `skills/` directory instead of `.agents/skills/`
+- Removed redundant "Active Skills" heading from homepage
+
 ## [0.5.0] - 2026-01-25
 
 ### Added

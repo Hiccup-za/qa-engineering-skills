@@ -39,4 +39,4 @@ yarn-error.log*
 .github/skills/
 
 # Installed skills (local only, not for distribution)
-# .agents/
+# .agents/skills/

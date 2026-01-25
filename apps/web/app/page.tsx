@@ -36,9 +36,6 @@ export default async function HomePage() {
         </div>
 
         <div className="mt-10 space-y-12">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight">Active Skills</h2>
-          </div>
           {skills.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {skills.map((skill) => (
