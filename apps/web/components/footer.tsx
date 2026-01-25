@@ -39,7 +39,7 @@ export async function Footer() {
               href="https://x.com/chriszeuch"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary font-medium hover:underline underline-offset-4"
+              className="text-primary font-medium hover:underline underline-offset-4 transition-all duration-300 hover:text-gradient-brand"
             >
               @chriszeuch
             </Link>

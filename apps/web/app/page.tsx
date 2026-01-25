@@ -24,7 +24,7 @@ export default async function HomePage() {
   const skills = await getSkills();
 
   return (
-    <main>
+    <main className="flex-1 bg-gradient-brand-subtle">
       <section className="mx-auto max-w-6xl px-6 pt-12 pb-12">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
@@ -48,7 +48,7 @@ export default async function HomePage() {
               {skills.map((skill) => (
                 <Card 
                   key={skill.id} 
-                  className="flex h-full flex-col"
+                  className="flex h-full flex-col transition-all duration-300 hover:bg-gradient-brand-subtle hover:border-opacity-50"
                 >
                     <SkillCardHeader
                       title={skill.title}

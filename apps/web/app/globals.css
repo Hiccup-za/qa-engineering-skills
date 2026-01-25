@@ -22,6 +22,9 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.75rem;
+    /* Gradient colors from qae-skills.png - #3FC7FB, #FC4649 */
+    --gradient-blue: 195 96% 62%;
+    --gradient-red: 359 97% 62%;
   }
 
   .dark {
@@ -42,6 +45,9 @@
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 0 0% 98%;
+    /* Gradient colors from qae-skills.png - adjusted for dark mode */
+    --gradient-blue: 195 96% 62%;
+    --gradient-red: 359 97% 62%;
   }
 }
 
@@ -72,5 +78,74 @@
   code, pre, .font-mono {
     font-family: var(--font-geist-mono), 'Courier New', monospace;
     font-feature-settings: 'liga' 0;
+  }
+}
+
+@layer utilities {
+  /* Subtle gradient backgrounds - adjusted for dark mode */
+  .bg-gradient-brand-subtle {
+    background: linear-gradient(
+      135deg,
+      rgba(63, 199, 251, 0.12) 0%,
+      rgba(252, 70, 73, 0.12) 100%
+    );
+    min-height: 100%;
+  }
+  
+  /* Dark mode specific adjustments */
+  .dark .bg-gradient-brand-subtle {
+    background: linear-gradient(
+      135deg,
+      rgba(63, 199, 251, 0.15) 0%,
+      rgba(252, 70, 73, 0.15) 100%
+    );
+  }
+  
+  /* Gradient text - using exact colors, adjusted for dark mode */
+  .text-gradient-brand {
+    background: linear-gradient(
+      135deg,
+      #3FC7FB,
+      #FC4649
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Dark mode gradient text - slightly brighter for visibility */
+  .dark .text-gradient-brand {
+    background: linear-gradient(
+      135deg,
+      #5DD3FF,
+      #FF6B6E
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Hover gradient text */
+  .hover\:text-gradient-brand:hover {
+    background: linear-gradient(
+      135deg,
+      #3FC7FB,
+      #FC4649
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Dark mode hover gradient text */
+  .dark .hover\:text-gradient-brand:hover {
+    background: linear-gradient(
+      135deg,
+      #5DD3FF,
+      #FF6B6E
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

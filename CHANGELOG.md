@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-01-25
+
+### Changed
+- Added gradient brand colors and hover effects across UI
+- Updated changelog page and homepage with gradient backgrounds
+
 ## [0.10.0] - 2026-01-25
 
 ### Added

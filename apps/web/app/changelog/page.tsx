@@ -59,7 +59,7 @@ export default async function ChangelogPage() {
   };
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-gradient-brand-subtle">
       <div className="px-6 py-12">
         <div className="mx-auto flex max-w-3xl flex-col gap-6">
           <div className="flex flex-wrap items-center gap-3">
@@ -105,6 +105,7 @@ export default async function ChangelogPage() {
                 return (
                   <Card 
                     key={section.title}
+                    className="transition-all duration-300 hover:bg-gradient-brand-subtle hover:border-opacity-50"
                   >
                     <CardHeader>
                       <CardTitle className="text-xl">
