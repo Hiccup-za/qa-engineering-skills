@@ -1,6 +1,6 @@
 {
   "name": "qa-skills",
-  "version": "0.10.2",
+  "version": "0.11.0",
   "private": true,
   "scripts": {
     "dev": "turbo run dev",
@@ -15,5 +15,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@databuddy/sdk": "^2.3.29"
+  }
 }

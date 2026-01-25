@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { Databuddy } from "@databuddy/sdk/react";
 
 export const metadata: Metadata = {
   title: "QA Engineering Skills",
@@ -35,6 +36,7 @@ export default async function RootLayout({
           {children}
         </main>
         <Footer />
+        <Databuddy clientId="0b92343b-a922-4b87-9d46-12b12eafeda5" />
       </body>
     </html>
   );
