@@ -1,39 +1,45 @@
 # Changelog
 
-All notable changes to this repository are documented here.
-
 ## [Unreleased]
 
+## [0.4.0] - 2026-01-25
+
+### Added
+- Changelog generator skill for automated changelog generation with semantic versioning
+- Turborepo agent skill with comprehensive documentation and best practices
+- Vercel React best practices skill with performance and optimization rules
+
+### Changed
+- Reformatted CHANGELOG.md to follow Keep a Changelog format standards
+- Added version field to package.json
+
 ## [0.3.0] - 2026-01-25
-- Migrated project to Turborepo monorepo structure.
-- Moved Next.js web application to `apps/web/` directory.
-- Reorganized skills directory structure to flat hierarchy.
-- Added Turborepo configuration (`turbo.json`).
-- Updated root package.json to use workspaces and Turbo scripts.
-- Moved all web app files (components, lib, app) to `apps/web/`.
-- Updated TypeScript configuration for monorepo setup.
-- Updated `.cursorrules` and `.gitignore` for monorepo structure.
-- Added Turborepo agent skill documentation.
+
+### Added
+- Turborepo monorepo structure and configuration
+
+### Changed
+- Migrated project to Turborepo monorepo structure
+- Moved Next.js web application and all web app files to `apps/web/` directory
+- Reorganized skills directory structure to flat hierarchy
+- Updated root package.json, TypeScript configuration, `.cursorrules`, and `.gitignore` for monorepo setup
 
 ## [0.2.0] - 2026-01-24
-- Added Next.js web application for browsing skills catalog.
-- Added skills browsing interface with categorized display (Templates, Best Practices, Process).
-- Added changelog viewer page.
-- Added theme toggle for dark/light mode support.
-- Added UI components (cards, buttons, copyable code snippets).
-- Added skills detail pages with markdown rendering.
-- Added `istqb-foundation` best practice skill.
-- Added `metrics-quality-reporting` process skill.
-- Added `test-strategy` process skill.
-- Added executable skill template.
-- Added project configuration files (.cursorrules, .gitignore).
-- Updated `test-planning` and `skill-template` skills.
+
+### Added
+- Next.js web application with skills browsing interface, changelog viewer, and theme toggle
+- Skills: `istqb-foundation`, `metrics-quality-reporting`, `test-strategy`
+- Executable skill template and project configuration files
+
+### Changed
+- Updated `test-planning` and `skill-template` skills
 
 ## [0.1.0] - 2026-01-24
-- Added MIT license.
-- Added release workflow for automated GitHub releases.
-- Added changelog to track repository updates.
-- Added skills catalog overview in `skills/README.md`.
-- Added `test-planning` process skill.
-- Added reusable skill template.
-- Updated top-level README with usage and catalog guidance.
+
+### Added
+- Initial project setup with MIT license, release workflow, and changelog
+- Skills catalog overview and `test-planning` process skill
+- Reusable skill template
+
+### Changed
+- Updated top-level README with usage and catalog guidance

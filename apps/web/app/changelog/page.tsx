@@ -3,6 +3,8 @@ import { readFile } from "fs/promises";
 
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +14,6 @@ export default async function ChangelogPage() {
   const content = await readFile(changelogPath, "utf8");
   const lines = content.split(/\r?\n/);
 
-  const introLines: string[] = [];
   const sections: { title: string; body: string[] }[] = [];
   let currentSection: { title: string; body: string[] } | null = null;
 
@@ -34,8 +35,6 @@ export default async function ChangelogPage() {
 
     if (currentSection) {
       currentSection.body.push(line);
-    } else {
-      introLines.push(line);
     }
   }
 
@@ -43,38 +42,20 @@ export default async function ChangelogPage() {
     sections.push(currentSection);
   }
 
-  const introText = introLines
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .join(" ");
-
-  const buildBlocks = (body: string[]) => {
-    const blocks: Array<{ type: "list"; items: string[] } | { type: "paragraph"; text: string }> =
-      [];
-    let listItems: string[] = [];
-
-    const flushList = () => {
-      if (listItems.length > 0) {
-        blocks.push({ type: "list", items: listItems });
-        listItems = [];
-      }
-    };
-
-    for (const line of body) {
-      if (line.startsWith("- ")) {
-        listItems.push(line.replace(/^-+\s+/, "").trim());
-        continue;
-      }
-
-      flushList();
-      const text = line.trim();
-      if (text) {
-        blocks.push({ type: "paragraph", text });
-      }
+  const markdownContent = (body: string[]) => {
+    // Trim leading and trailing empty lines, but preserve internal structure
+    let start = 0;
+    let end = body.length;
+    
+    while (start < body.length && !body[start].trim()) {
+      start++;
     }
-
-    flushList();
-    return blocks;
+    
+    while (end > start && !body[end - 1].trim()) {
+      end--;
+    }
+    
+    return body.slice(start, end).join("\n");
   };
 
   return (
@@ -88,7 +69,6 @@ export default async function ChangelogPage() {
           </Button>
           <h1 className="text-2xl font-semibold tracking-tight">Changelog</h1>
         </div>
-        {introText ? <p className="text-sm text-muted-foreground">{introText}</p> : null}
         <div className="grid gap-6">
           {sections
             .map((section, index) => ({
@@ -110,31 +90,44 @@ export default async function ChangelogPage() {
               return b.index - a.index;
             })
             .map((section) => {
-              const blocks = buildBlocks(section.body);
+              const content = markdownContent(section.body);
+              // Only render sections that have content
+              if (!content.trim()) {
+                return null;
+              }
               return (
                 <Card key={section.title}>
                   <CardHeader>
                     <CardTitle>{section.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3 text-sm text-foreground">
-                      {blocks.map((block, index) => {
-                        if (block.type === "list") {
-                          return (
-                            <ul key={`${section.title}-list-${index}`} className="list-disc pl-5">
-                              {block.items.map((item) => (
-                                <li key={item}>{item}</li>
-                              ))}
-                            </ul>
-                          );
-                        }
-                        return <p key={`${section.title}-p-${index}`}>{block.text}</p>;
-                      })}
+                    <div className="prose prose-sm dark:prose-invert max-w-none [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-muted [&_code]:text-foreground [&_code]:text-xs [&_code]:font-mono [&_pre]:hidden">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          h3: ({ children }) => (
+                            <h3 className="text-base font-semibold mt-4 mb-2 first:mt-0">{children}</h3>
+                          ),
+                          ul: ({ children }) => (
+                            <ul className="list-disc pl-5 space-y-1 my-2">{children}</ul>
+                          ),
+                          li: ({ children }) => (
+                            <li className="text-sm text-foreground">{children}</li>
+                          ),
+                          p: ({ children }) => (
+                            <p className="text-sm text-foreground my-2">{children}</p>
+                          ),
+                          pre: () => null,
+                        }}
+                      >
+                        {content}
+                      </ReactMarkdown>
                     </div>
                   </CardContent>
                 </Card>
               );
-            })}
+            })
+            .filter(Boolean)}
         </div>
       </div>
     </main>
