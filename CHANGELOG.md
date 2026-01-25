@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-01-25
+
+### Added
+- PackageManagerCode component with package manager selection tabs
+- Tabs UI component from shadcn/ui for tabbed interfaces
+
+### Changed
+- Enhanced homepage with package manager selection (Bun, NPM, PNPM, Yarn)
+- Added @radix-ui/react-tabs dependency for tab functionality
+- Removed react-syntax-highlighter dependency
+
 ## [0.7.0] - 2026-01-25
 
 ### Added

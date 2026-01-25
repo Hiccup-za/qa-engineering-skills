@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CopyableCode } from "@/components/ui/copyable-code";
+import { PackageManagerCode } from "@/components/package-manager-code";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 
@@ -35,7 +36,7 @@ export default async function HomePage() {
                   QA Engineering process and best-practice skills for engineering teams.
                 </p>
               </div>
-              <CopyableCode code="npx skills add Hiccup-za/qa-skills" className="w-fit" />
+              <PackageManagerCode packageName="Hiccup-za/qa-skills" className="w-fit" />
             </div>
             <div className="flex items-center gap-2">
               <Button
