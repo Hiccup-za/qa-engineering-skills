@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-01-25
+
+### Added
+- GitHub repository link button to homepage header
+
 ## [0.8.0] - 2026-01-25
 
 ### Added
