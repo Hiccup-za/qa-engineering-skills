@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-01-25
+
+### Added
+- DataBuddy analytics integration for tracking and insights
+
 ## [0.10.2] - 2026-01-25
 
 ### Changed

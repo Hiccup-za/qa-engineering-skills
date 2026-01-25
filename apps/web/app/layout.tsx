@@ -17,6 +17,14 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <script
+          src="https://cdn.databuddy.cc/databuddy.js"
+          data-client-id="0b92343b-a922-4b87-9d46-12b12eafeda5"
+          crossOrigin="anonymous"
+          async
+        />
+      </head>
       <body className={`${GeistSans.variable} ${GeistMono.variable} flex flex-col min-h-screen`}>
         <script
           dangerouslySetInnerHTML={{
