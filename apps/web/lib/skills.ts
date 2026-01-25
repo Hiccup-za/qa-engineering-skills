@@ -1,5 +1,6 @@
 import path from "path";
 import { readdir, readFile, stat } from "fs/promises";
+import { cache } from "react";
 
 export type Command = {
   name: string;
@@ -167,7 +168,7 @@ async function findCommands(skillDir: string): Promise<Command[]> {
     // Just return empty array
   }
 
-  return commands.sort((a, b) => a.name.localeCompare(b.name));
+  return commands.toSorted((a, b) => a.name.localeCompare(b.name));
 }
 
 async function fetchInstallCounts(): Promise<Map<string, number>> {
@@ -295,12 +296,17 @@ async function fetchInstallCounts(): Promise<Map<string, number>> {
   return installCounts;
 }
 
-export async function getSkills(): Promise<SkillEntry[]> {
-  const files = await findSkillFiles(SKILLS_ROOT);
-  const skills: SkillEntry[] = [];
+// Use React.cache() for per-request deduplication
+// Within a single request, multiple calls to getSkills() will execute only once
+export const getSkills = cache(async (): Promise<SkillEntry[]> => {
+  // Parallelize independent operations: file discovery and install count fetching
+  // Both can run simultaneously since they don't depend on each other
+  const [files, installCounts] = await Promise.all([
+    findSkillFiles(SKILLS_ROOT),
+    fetchInstallCounts(),
+  ]);
   
-  // Fetch install counts once for all skills
-  const installCounts = await fetchInstallCounts();
+  const skills: SkillEntry[] = [];
 
   for (const filePath of files) {
     const markdown = await readFile(filePath, "utf8");
@@ -334,5 +340,5 @@ export async function getSkills(): Promise<SkillEntry[]> {
     });
   }
 
-  return skills.sort((a, b) => a.title.localeCompare(b.title));
-}
+  return skills.toSorted((a, b) => a.title.localeCompare(b.title));
+});

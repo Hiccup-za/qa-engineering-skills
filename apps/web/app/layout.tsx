@@ -1,9 +1,12 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "QA Skills",
+  title: "QA Engineering Skills",
   description: "Browse QA skills and best practices.",
 };
 
@@ -14,10 +17,23 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className="flex flex-col min-h-screen">
-        <div className="flex-1">
+      <body className={`${GeistSans.variable} ${GeistMono.variable} flex flex-col min-h-screen`}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  // Always ensure dark mode is on
+                  document.documentElement.classList.add('dark');
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+        <Header />
+        <main className="flex-1">
           {children}
-        </div>
+        </main>
         <Footer />
       </body>
     </html>

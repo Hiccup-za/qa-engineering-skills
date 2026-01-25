@@ -2,6 +2,23 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-01-25
+
+### Added
+- Header component with logo, navigation links, and sticky positioning
+- SkillCardHeader component for improved skill card organization
+- Logo image (qae-skills.png) for branding
+
+### Changed
+- Refactored homepage layout with improved typography and spacing
+- Enhanced changelog page styling and layout
+- Updated README with logo display and bunx installation command
+- Improved responsive design and component organization
+- Updated .gitignore to include skills directories
+
+### Removed
+- ThemeToggle component (consolidated into header)
+
 ## [0.9.0] - 2026-01-25
 
 ### Added

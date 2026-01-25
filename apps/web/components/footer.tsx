@@ -21,16 +21,16 @@ export async function Footer() {
   const version = await getCurrentVersion();
 
   return (
-    <footer className="border-t mt-auto">
-      <div className="mx-auto max-w-6xl px-6 py-6">
-        <div className="flex flex-wrap items-center gap-3">
+    <footer className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="flex h-14 flex-wrap items-center gap-4">
           <Button
             asChild
             variant="outline"
             size="sm"
           >
             <Link href="/changelog">
-              v{version}
+              <span className="font-mono text-xs">v{version}</span>
             </Link>
           </Button>
           <span className="text-sm text-muted-foreground">
@@ -39,7 +39,7 @@ export async function Footer() {
               href="https://x.com/chriszeuch"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary hover:underline font-medium"
+              className="text-primary font-medium hover:underline underline-offset-4"
             >
               @chriszeuch
             </Link>

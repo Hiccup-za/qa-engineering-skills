@@ -35,6 +35,6 @@ yarn-error.log*
 .turbo
 
 # Skills
-# .agents/skills/
-# .cursor/skills/
-# .github/skills/
+.agents/skills/
+.cursor/skills/
+.github/skills/

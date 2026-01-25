@@ -1,4 +1,8 @@
-# qa-skills
+<div align="center">
+  <img src="apps/web/public/qae-skills.png" alt="QAE Skills Icon" width="25%" />
+</div>
+
+# QA Engineering Skills
 
 QA Engineering process and best-practice skills for engineering teams.  
 https://skills.sh/Hiccup-za/qa-skills
@@ -6,7 +10,7 @@ https://skills.sh/Hiccup-za/qa-skills
 ## Installation
 
 ```sh
-npx skills add Hiccup-za/qa-skills
+bunx skills add Hiccup-za/qa-skills
 ```
 
 ## Skills

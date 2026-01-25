@@ -59,75 +59,87 @@ export default async function ChangelogPage() {
   };
 
   return (
-    <main className="px-6 py-12">
-      <div className="mx-auto flex max-w-3xl flex-col gap-6">
-        <div className="sticky top-0 z-10 flex flex-wrap items-center gap-3 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 -mx-6 px-6">
-          <Button asChild variant="ghost" size="sm">
-            <Link href="/">
-              <ArrowLeft className="h-4 w-4" />
-            </Link>
-          </Button>
-          <h1 className="text-2xl font-semibold tracking-tight">Changelog</h1>
-        </div>
-        <div className="grid gap-6">
-          {sections
-            .map((section, index) => ({
-              ...section,
-              index,
-              date: section.title.match(/-\s*(\d{4}-\d{2}-\d{2})\s*$/)?.[1],
-            }))
-            .filter((section) => section.title.toLowerCase() !== "[unreleased]")
-            .sort((a, b) => {
-              if (a.date && b.date) {
-                return b.date.localeCompare(a.date);
-              }
-              if (a.date) {
-                return -1;
-              }
-              if (b.date) {
-                return 1;
-              }
-              return b.index - a.index;
-            })
-            .map((section) => {
-              const content = markdownContent(section.body);
-              // Only render sections that have content
-              if (!content.trim()) {
-                return null;
-              }
-              return (
-                <Card key={section.title}>
-                  <CardHeader>
-                    <CardTitle>{section.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="prose prose-sm dark:prose-invert max-w-none [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-muted [&_code]:text-foreground [&_code]:text-xs [&_code]:font-mono [&_pre]:hidden">
-                      <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        components={{
-                          h3: ({ children }) => (
-                            <h3 className="text-base font-semibold mt-4 mb-2 first:mt-0">{children}</h3>
-                          ),
-                          ul: ({ children }) => (
-                            <ul className="list-disc pl-5 space-y-1 my-2">{children}</ul>
-                          ),
-                          li: ({ children }) => (
-                            <li className="text-sm text-foreground">{children}</li>
-                          ),
-                          p: ({ children }) => (
-                            <p className="text-sm text-foreground my-2">{children}</p>
-                          ),
-                          pre: () => null,
-                        }}
-                      >
-                        {content}
-                      </ReactMarkdown>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })
-            .filter(Boolean)}
+    <main className="min-h-screen">
+      <div className="px-6 py-12">
+        <div className="mx-auto flex max-w-3xl flex-col gap-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <Button 
+              asChild 
+              variant="ghost" 
+              size="sm"
+            >
+              <Link href="/">
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+            </Button>
+            <h1 className="text-3xl font-semibold tracking-tight">
+              Changelog
+            </h1>
+          </div>
+          <div className="grid gap-6">
+            {sections
+              .map((section, index) => ({
+                ...section,
+                index,
+                date: section.title.match(/-\s*(\d{4}-\d{2}-\d{2})\s*$/)?.[1],
+              }))
+              .filter((section) => section.title.toLowerCase() !== "[unreleased]")
+              .toSorted((a, b) => {
+                if (a.date && b.date) {
+                  return b.date.localeCompare(a.date);
+                }
+                if (a.date) {
+                  return -1;
+                }
+                if (b.date) {
+                  return 1;
+                }
+                return b.index - a.index;
+              })
+              .map((section) => {
+                const content = markdownContent(section.body);
+                // Only render sections that have content
+                if (!content.trim()) {
+                  return null;
+                }
+                return (
+                  <Card 
+                    key={section.title}
+                  >
+                    <CardHeader>
+                      <CardTitle className="text-xl">
+                        {section.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="prose prose-sm dark:prose-invert max-w-none [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-muted [&_code]:text-foreground [&_code]:text-xs [&_code]:font-mono [&_pre]:hidden">
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            h3: ({ children }) => (
+                              <h3 className="text-base font-semibold mt-4 mb-2 first:mt-0 text-primary">{children}</h3>
+                            ),
+                            ul: ({ children }) => (
+                              <ul className="list-disc pl-5 space-y-1 my-2">{children}</ul>
+                            ),
+                            li: ({ children }) => (
+                              <li className="text-sm text-foreground">{children}</li>
+                            ),
+                            p: ({ children }) => (
+                              <p className="text-sm text-foreground my-2 leading-relaxed">{children}</p>
+                            ),
+                            pre: () => null,
+                          }}
+                        >
+                          {content}
+                        </ReactMarkdown>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })
+              .filter(Boolean)}
+          </div>
         </div>
       </div>
     </main>
