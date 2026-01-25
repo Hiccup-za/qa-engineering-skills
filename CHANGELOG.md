@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-01-25
+
+### Added
+- Footer component with version link and attribution
+- Install count display for skills with Activity icon
+- Install count fetching from skills.sh API
+
+### Changed
+- Extracted footer from layout into separate component
+- Improved changelog page with sticky header and backdrop blur
+- Enhanced layout structure with flexbox for footer positioning
+- Updated homepage styling to remove background color
+
 ## [0.8.1] - 2026-01-25
 
 ### Added

@@ -59,9 +59,9 @@ export default async function ChangelogPage() {
   };
 
   return (
-    <main className="min-h-screen bg-muted/30 px-6 py-12">
+    <main className="px-6 py-12">
       <div className="mx-auto flex max-w-3xl flex-col gap-6">
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="sticky top-0 z-10 flex flex-wrap items-center gap-3 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 -mx-6 px-6">
           <Button asChild variant="ghost" size="sm">
             <Link href="/">
               <ArrowLeft className="h-4 w-4" />

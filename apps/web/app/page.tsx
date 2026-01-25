@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CopyableCode } from "@/components/ui/copyable-code";
 import { PackageManagerCode } from "@/components/package-manager-code";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Activity } from "lucide-react";
 import Link from "next/link";
 
 function getFirstSentence(text: string): string {
@@ -25,7 +26,7 @@ export default async function HomePage() {
   const skills = await getSkills();
 
   return (
-    <main className="min-h-screen bg-muted/30">
+    <main>
       <section className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap items-start justify-between gap-4">
@@ -104,9 +105,17 @@ export default async function HomePage() {
                   <CardHeader>
                     <div className="flex items-center justify-between gap-4">
                       <CardTitle>{skill.title}</CardTitle>
-                      {skill.version && (
-                        <Badge variant="outline">{skill.version}</Badge>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {skill.installs && skill.installs > 0 && (
+                          <Badge variant="outline" className="flex items-center gap-1">
+                            <Activity className="h-3 w-3" />
+                            {skill.installs}
+                          </Badge>
+                        )}
+                        {skill.version && (
+                          <Badge variant="outline">{skill.version}</Badge>
+                        )}
+                      </div>
                     </div>
                   </CardHeader>
                   <CardContent className="flex flex-col gap-4 mt-auto">

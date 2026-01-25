@@ -15,6 +15,7 @@ export type SkillEntry = {
   description?: string;
   version?: string;
   commands?: Command[];
+  installs?: number;
 };
 
 const SKILLS_ROOT = path.join(process.cwd(), "..", "..", "skills");
@@ -169,9 +170,137 @@ async function findCommands(skillDir: string): Promise<Command[]> {
   return commands.sort((a, b) => a.name.localeCompare(b.name));
 }
 
+async function fetchInstallCounts(): Promise<Map<string, number>> {
+  const installCounts = new Map<string, number>();
+  
+  try {
+    const response = await fetch("https://skills.sh/hiccup-za/qa-skills", {
+      next: { revalidate: 3600 }, // Cache for 1 hour
+    });
+    
+    if (!response.ok) {
+      return installCounts;
+    }
+    
+    const html = await response.text();
+    
+    // Parse HTML to extract skill names and install counts
+    // The structure may vary, so we'll try multiple patterns
+    // Common patterns to look for:
+    // 1. Skill name followed by install count
+    // 2. Data attributes with install counts
+    // 3. Text patterns like "X installs" or "Installs: X"
+    
+    // Try to find skill entries - this is a flexible parser
+    // that looks for common patterns in the HTML
+    
+    // Pattern 1: Look for skill slugs in the HTML (e.g., "istqb-foundation", "changelog-generator")
+    // and try to find associated install counts nearby
+    
+    // Strategy 1: Look for JSON data embedded in the page (most reliable)
+    const jsonMatch = html.match(/<script[^>]*type=["']application\/json["'][^>]*>([\s\S]*?)<\/script>/i);
+    if (jsonMatch) {
+      try {
+        const data = JSON.parse(jsonMatch[1]);
+        // Try various JSON structures
+        if (data.skills && Array.isArray(data.skills)) {
+          for (const skill of data.skills) {
+            if (skill.slug && typeof skill.installs === "number") {
+              installCounts.set(skill.slug, skill.installs);
+            }
+          }
+        }
+        // Also check for flat structure
+        if (data.installs && typeof data.installs === "object") {
+          for (const [slug, count] of Object.entries(data.installs)) {
+            if (typeof count === "number") {
+              installCounts.set(slug, count);
+            }
+          }
+        }
+      } catch {
+        // JSON parsing failed, continue with other methods
+      }
+    }
+    
+    // Strategy 2: Look for data attributes (e.g., data-skill-slug, data-installs)
+    const dataAttributePattern = /data-skill-slug=["']([^"']+)["'][^>]*data-installs=["'](\d+)["']/gi;
+    let dataMatch;
+    while ((dataMatch = dataAttributePattern.exec(html)) !== null) {
+      const slug = dataMatch[1];
+      const count = parseInt(dataMatch[2], 10);
+      if (!isNaN(count)) {
+        installCounts.set(slug, count);
+      }
+    }
+    
+    // Strategy 3: Look for skill slugs in hrefs/links and find install counts within the same <a> tag
+    // Pattern: href="/hiccup-za/qa-skills/{skill-slug}" followed by content and then a span with a number
+    // The structure is: <a href="/hiccup-za/qa-skills/changelog-generator">...<div class="...text-right..."><span>2</span></div></a>
+    // We match the href, capture everything until </a>, then find the number in a span
+    const linkPattern = /href=["']\/hiccup-za\/qa-skills\/([a-z0-9-]+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+    let linkMatch;
+    while ((linkMatch = linkPattern.exec(html)) !== null) {
+      const slug = linkMatch[1];
+      const linkContent = linkMatch[2];
+      
+      // Look for a span with a number in the link content
+      // The install count is typically in: <div class="...text-right..."><span>2</span></div>
+      // or <span class="font-mono text-sm text-foreground">2</span>
+      // Try multiple patterns to be robust, in order of specificity
+      const patterns = [
+        // Most specific: text-right div containing a span with number
+        /<div[^>]*\btext-right\b[^>]*>[\s\S]*?<span[^>]*>(\d+)<\/span>/i,
+        // Font-mono span (common for numbers)
+        /<span[^>]*\bfont-mono\b[^>]*>(\d+)<\/span>/i,
+        // Any span with text-foreground class
+        /<span[^>]*\btext-foreground\b[^>]*>(\d+)<\/span>/i,
+        // Last resort: any span with just a number (but prefer ones near the end)
+        /<span[^>]*>(\d+)<\/span>(?=[\s\S]{0,100}<\/a>)/i,
+      ];
+      
+      for (const pattern of patterns) {
+        const countMatch = linkContent.match(pattern);
+        if (countMatch) {
+          const count = parseInt(countMatch[1], 10);
+          if (!isNaN(count) && slug.length > 2 && count > 0) {
+            installCounts.set(slug, count);
+            break; // Found a match, move to next link
+          }
+        }
+      }
+    }
+    
+    // Strategy 4: Look for patterns like "skill-name" followed by install count
+    // This is more flexible and searches for any kebab-case identifier followed by install info
+    const flexiblePattern = /([a-z0-9]+(?:-[a-z0-9]+)+)[\s\S]{0,300}?(?:installs?|downloads?)[\s:]+(\d+)/gi;
+    let flexMatch;
+    while ((flexMatch = flexiblePattern.exec(html)) !== null) {
+      const slug = flexMatch[1];
+      const count = parseInt(flexMatch[2], 10);
+      // Only accept if it looks like a skill slug (has at least one dash and reasonable length)
+      if (!isNaN(count) && slug.includes("-") && slug.length >= 5 && slug.length <= 50) {
+        // Don't overwrite if we already have a count for this slug (prefer more specific matches)
+        if (!installCounts.has(slug)) {
+          installCounts.set(slug, count);
+        }
+      }
+    }
+    
+  } catch (error) {
+    // Silently fail - return empty map (graceful degradation)
+    console.error("Failed to fetch install counts:", error);
+  }
+  
+  return installCounts;
+}
+
 export async function getSkills(): Promise<SkillEntry[]> {
   const files = await findSkillFiles(SKILLS_ROOT);
   const skills: SkillEntry[] = [];
+  
+  // Fetch install counts once for all skills
+  const installCounts = await fetchInstallCounts();
 
   for (const filePath of files) {
     const markdown = await readFile(filePath, "utf8");
@@ -188,6 +317,9 @@ export async function getSkills(): Promise<SkillEntry[]> {
     // Find the skill directory (parent of SKILL.md)
     const skillDir = path.dirname(filePath);
     const commands = await findCommands(skillDir);
+    
+    // Get install count for this skill
+    const installs = installCounts.get(slug);
 
     skills.push({
       id,
@@ -198,6 +330,7 @@ export async function getSkills(): Promise<SkillEntry[]> {
       description,
       version,
       commands: commands.length > 0 ? commands : undefined,
+      installs,
     });
   }
 
