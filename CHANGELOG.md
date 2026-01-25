@@ -4,6 +4,17 @@ All notable changes to this repository are documented here.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-01-25
+- Migrated project to Turborepo monorepo structure.
+- Moved Next.js web application to `apps/web/` directory.
+- Reorganized skills directory structure to flat hierarchy.
+- Added Turborepo configuration (`turbo.json`).
+- Updated root package.json to use workspaces and Turbo scripts.
+- Moved all web app files (components, lib, app) to `apps/web/`.
+- Updated TypeScript configuration for monorepo setup.
+- Updated `.cursorrules` and `.gitignore` for monorepo structure.
+- Added Turborepo agent skill documentation.
+
 ## [0.2.0] - 2026-01-24
 - Added Next.js web application for browsing skills catalog.
 - Added skills browsing interface with categorized display (Templates, Best Practices, Process).

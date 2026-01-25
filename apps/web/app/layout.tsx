@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 async function getCurrentVersion() {
-  const changelogPath = path.join(process.cwd(), "CHANGELOG.md");
+  const changelogPath = path.join(process.cwd(), "..", "..", "CHANGELOG.md");
 
   try {
     const content = await readFile(changelogPath, "utf8");

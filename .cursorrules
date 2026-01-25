@@ -1,3 +1,48 @@
-WE USE BUN
-WE ARE IN 2026
-DO NOT BE AN IDIOT
+# Package Manager
+- Use Bun for all package management operations (install, run, etc.)
+- Never use npm, yarn, or pnpm commands
+
+# Framework & Runtime
+- Next.js 16 with App Router
+- React 19 with Server Components (RSC) by default
+- TypeScript with strict mode enabled
+- Use async/await for server components and data fetching
+
+# Date & Time
+- Always check the current date when unsure instead of guessing
+- Use system date/time information when available
+- Never assume or hardcode dates without verification
+
+# Code Style
+- Use TypeScript strict mode - no `any` types unless absolutely necessary
+- Use path aliases (`@/`) for imports instead of relative paths
+- Prefer functional components with async server components
+- Use Tailwind CSS for styling - no inline styles or CSS modules
+- Follow shadcn/ui component patterns and conventions
+
+# File Structure
+- Skills are stored in `skills/` directory as markdown files named `SKILL.md`
+- Skills are organized by category (templates, best-practices, process)
+- Components go in `components/` directory
+- UI components from shadcn/ui go in `components/ui/`
+- Utility functions go in `lib/` directory
+
+# Component Patterns
+- Use shadcn/ui components from `@/components/ui/`
+- Server components by default, use 'use client' directive only when needed
+- Prefer composition over configuration
+- Use Card, Button, and other shadcn components consistently
+
+# Best Practices
+- Keep components small and focused
+- Use proper TypeScript types for all functions and components
+- Follow Next.js conventions for file naming and routing
+- Ensure all async operations are properly handled
+- Use semantic HTML and accessible components
+- Maintain consistent code formatting
+
+# Skills System
+- Skills are markdown files that must be named `SKILL.md` (case-insensitive)
+- Skills are automatically discovered from the `skills/` directory structure
+- Category is determined by the parent directory name
+- Title is extracted from the first `# ` heading in the markdown file

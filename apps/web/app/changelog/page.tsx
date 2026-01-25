@@ -1,13 +1,14 @@
 import path from "path";
 import { readFile } from "fs/promises";
 
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function ChangelogPage() {
-  const changelogPath = path.join(process.cwd(), "CHANGELOG.md");
+  const changelogPath = path.join(process.cwd(), "..", "..", "CHANGELOG.md");
   const content = await readFile(changelogPath, "utf8");
   const lines = content.split(/\r?\n/);
 
@@ -81,7 +82,9 @@ export default async function ChangelogPage() {
       <div className="mx-auto flex max-w-3xl flex-col gap-6">
         <div className="flex flex-wrap items-center gap-3">
           <Button asChild variant="ghost" size="sm">
-            <Link href="/">Back</Link>
+            <Link href="/">
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
           </Button>
           <h1 className="text-2xl font-semibold tracking-tight">Changelog</h1>
         </div>

@@ -27,7 +27,6 @@ export function ThemeToggle() {
   return (
     <Button variant="outline" size="sm" onClick={toggleTheme}>
       {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-      <span className="text-xs">{isDark ? "Light mode" : "Dark mode"}</span>
     </Button>
   );
 }
