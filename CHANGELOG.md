@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-01-25
+
+### Added
+- ISTQB Foundation skill with comprehensive testing principles, techniques, and best practices
+- Skills browsing interface now displays all available skills instead of a single skill
+
+### Changed
+- Reorganized skills directory structure: moved changelog-generator from `.agents/skills/` to `skills/`
+- Updated skills path configuration to use `.agents/skills/` directory
+- Enhanced web application to show all skills in a grid layout with version badges
+
+### Removed
+- Turborepo agent skill and all associated documentation
+- Vercel React best practices skill and all associated rules
+
 ## [0.4.0] - 2026-01-25
 
 ### Added

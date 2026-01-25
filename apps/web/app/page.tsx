@@ -19,7 +19,6 @@ function getFirstSentence(text: string): string {
 
 export default async function HomePage() {
   const skills = await getSkills();
-  const istqbSkill = skills.find((skill) => skill.slug === "istqb-foundation");
 
   return (
     <main className="min-h-screen bg-muted/30">
@@ -37,23 +36,28 @@ export default async function HomePage() {
         </div>
 
         <div className="mt-10 space-y-12">
-          {istqbSkill ? (
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight">Active Skills</h2>
+          </div>
+          {skills.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <Card key={istqbSkill.id} className="flex h-full flex-col relative">
-                <CardHeader>
-                  <div className="flex items-center justify-between gap-4">
-                    <CardTitle>{istqbSkill.title}</CardTitle>
-                    {istqbSkill.version && (
-                      <Badge variant="outline">{istqbSkill.version}</Badge>
+              {skills.map((skill) => (
+                <Card key={skill.id} className="flex h-full flex-col relative">
+                  <CardHeader>
+                    <div className="flex items-center justify-between gap-4">
+                      <CardTitle>{skill.title}</CardTitle>
+                      {skill.version && (
+                        <Badge variant="outline">{skill.version}</Badge>
+                      )}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex flex-col gap-4 mt-auto">
+                    {skill.description && (
+                      <p className="text-sm text-muted-foreground">{getFirstSentence(skill.description)}</p>
                     )}
-                  </div>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-4 mt-auto">
-                  {istqbSkill.description && (
-                    <p className="text-sm text-muted-foreground">{getFirstSentence(istqbSkill.description)}</p>
-                  )}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           ) : (
             <p className="text-sm text-muted-foreground">No skills found yet.</p>

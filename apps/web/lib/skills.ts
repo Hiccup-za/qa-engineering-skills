@@ -11,7 +11,7 @@ export type SkillEntry = {
   version?: string;
 };
 
-const SKILLS_ROOT = path.join(process.cwd(), "..", "..", "skills");
+const SKILLS_ROOT = path.join(process.cwd(), "..", "..", ".agents", "skills");
 
 async function findSkillFiles(dir: string): Promise<string[]> {
   const entries = await readdir(dir);

@@ -37,3 +37,6 @@ yarn-error.log*
 # Skills - symlinks (recreated automatically by skills CLI)
 .cursor/skills/
 .github/skills/
+
+# Installed skills (local only, not for distribution)
+# .agents/
