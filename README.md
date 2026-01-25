@@ -4,6 +4,8 @@
 
 # QA Engineering Skills
 
+[![🚢 Release](https://github.com/Hiccup-za/qa-engineering-skills/actions/workflows/release.yml/badge.svg)](https://github.com/Hiccup-za/qa-engineering-skills/actions/workflows/release.yml)
+
 QA Engineering process and best-practice skills for engineering teams.  
 https://skills.sh/Hiccup-za/qa-skills
 

@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.10.2] - 2026-01-25
+
+### Changed
+- Added release workflow badge to README
+
 ## [0.10.1] - 2026-01-25
 
 ### Changed
