@@ -1,6 +1,11 @@
 import path from "path";
 import { readdir, readFile, stat } from "fs/promises";
 
+export type Command = {
+  name: string;
+  description?: string;
+};
+
 export type SkillEntry = {
   id: string;
   title: string;
@@ -9,6 +14,7 @@ export type SkillEntry = {
   slug: string;
   description?: string;
   version?: string;
+  commands?: Command[];
 };
 
 const SKILLS_ROOT = path.join(process.cwd(), "..", "..", "skills");
@@ -133,6 +139,36 @@ function extractVersion(markdown: string): string | undefined {
   return versionMatch ? versionMatch[1].trim() : undefined;
 }
 
+async function findCommands(skillDir: string): Promise<Command[]> {
+  const commandDir = path.join(skillDir, "command");
+  const commands: Command[] = [];
+
+  try {
+    const entries = await readdir(commandDir);
+    
+    for (const entry of entries) {
+      const fullPath = path.join(commandDir, entry);
+      const info = await stat(fullPath);
+      
+      if (info.isFile() && entry.endsWith(".md")) {
+        const markdown = await readFile(fullPath, "utf8");
+        const commandName = entry.replace(/\.md$/, "");
+        const description = extractDescription(markdown);
+        
+        commands.push({
+          name: commandName,
+          description,
+        });
+      }
+    }
+  } catch (error) {
+    // Command directory doesn't exist or can't be read - that's okay
+    // Just return empty array
+  }
+
+  return commands.sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export async function getSkills(): Promise<SkillEntry[]> {
   const files = await findSkillFiles(SKILLS_ROOT);
   const skills: SkillEntry[] = [];
@@ -148,6 +184,10 @@ export async function getSkills(): Promise<SkillEntry[]> {
     const title = extractTitle(markdown, baseName);
     const description = extractDescription(markdown);
     const version = extractVersion(markdown);
+    
+    // Find the skill directory (parent of SKILL.md)
+    const skillDir = path.dirname(filePath);
+    const commands = await findCommands(skillDir);
 
     skills.push({
       id,
@@ -157,6 +197,7 @@ export async function getSkills(): Promise<SkillEntry[]> {
       slug,
       description,
       version,
+      commands: commands.length > 0 ? commands : undefined,
     });
   }
 

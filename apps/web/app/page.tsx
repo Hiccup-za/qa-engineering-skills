@@ -87,6 +87,22 @@ export default async function HomePage() {
                     {skill.description && (
                       <p className="text-sm text-muted-foreground">{getFirstSentence(skill.description)}</p>
                     )}
+                    {skill.commands && skill.commands.length > 0 && (
+                      <div className="flex flex-col gap-2">
+                        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                          Commands
+                        </h3>
+                        <div className="flex flex-col gap-2">
+                          {skill.commands.map((command) => (
+                            <CopyableCode
+                              key={command.name}
+                              code={`/${command.name}`}
+                              className="w-full"
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               ))}

@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-01-25
+
+### Added
+- Command discovery and display functionality for skills
+- Automatic detection of command files in skill directories
+- Command display in skills UI with copyable command snippets
+
+### Changed
+- Enhanced skills UI to show available commands for each skill
+- Updated skills data structure to include command information
+
 ## [0.6.0] - 2026-01-25
 
 ### Added
