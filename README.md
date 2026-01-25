@@ -1,8 +1,20 @@
 # qa-skills
 
-QA process and best-practice skills for dev teams.
+QA Engineering process and best-practice skills for engineering teams.  
+https://skills.sh/Hiccup-za/qa-skills
 
-## How to use in Cursor
-- Install the skills into this repo with the CLI:
-  - `bunx skills add Hiccup-za/qa-skills`
-- In Cursor Agent chat, invoke a skill with `/skill-name`.
+## Installation
+
+```sh
+npx skills add Hiccup-za/qa-skills
+```
+
+## Skills
+
+### ISTQB Foundation
+
+- `create-test-plan` - Create a comprehensive test plan following ISTQB Foundation standards
+
+### Changelog Generator
+
+- `changelog-generator` - Generate changelog entries, bump version, and prepare releases

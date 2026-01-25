@@ -34,9 +34,7 @@ yarn-error.log*
 # Turbo
 .turbo
 
-# Skills - symlinks (recreated automatically by skills CLI)
-.cursor/skills/
-.github/skills/
-
-# Installed skills (local only, not for distribution)
+# Skills
 # .agents/skills/
+# .cursor/skills/
+# .github/skills/

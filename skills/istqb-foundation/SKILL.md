@@ -11,7 +11,7 @@ description: |
   test activities, conducting reviews, managing test processes, or when standardized testing terminology
   and practices are needed.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # ISTQB Foundation
@@ -533,12 +533,14 @@ What this skill produces:
 
 ## How to Use
 
-This skill uses a rule-based structure with individual rule files in the `rules/` directory. Each rule provides:
+This skill uses a rule-based structure with individual rule files in the `rules/` directory and actionable command workflows in the `command/` directory. Each rule provides:
 
 - Clear explanation of the ISTQB concept
 - Incorrect vs. correct examples
 - When to apply the rule
 - Additional context and considerations
+
+Commands provide step-by-step workflows for executing specific testing activities, complementing the rule-based guidance.
 
 ### Using Rules
 
@@ -556,6 +558,19 @@ Each rule file follows this structure:
 - Correct example with explanation
 - When to apply
 - Additional context
+
+### Using Commands
+
+This skill provides actionable command workflows in the `command/` directory. Commands provide step-by-step instructions for executing specific testing activities:
+
+1. **For actionable workflows:** Use commands when you need step-by-step guidance for specific activities
+2. **For test planning:** Use `create-test-plan` command to create comprehensive test plans
+3. **Commands complement rules:** Commands provide workflows while rules provide guidance on what to do/not do
+
+**Available Commands:**
+- `create-test-plan` - Step-by-step workflow for creating comprehensive test plans following ISTQB standards
+
+Commands are automatically discovered from the `command/` directory and can be invoked when agents need actionable workflows for specific testing activities.
 
 ## Examples
 

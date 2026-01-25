@@ -4,8 +4,7 @@ import { readFile } from "fs/promises";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { badgeVariants } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "QA Skills",
@@ -39,15 +38,16 @@ export default async function RootLayout({
         {children}
         <div className="pointer-events-none fixed bottom-4 left-0 right-0">
           <div className="mx-auto flex max-w-6xl px-6">
-            <Link
-              href="/changelog"
-              className={cn(
-                badgeVariants({ variant: "secondary" }),
-                "pointer-events-auto border-border/60 bg-background/90 px-3 py-1 text-sm text-foreground shadow-sm",
-              )}
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="pointer-events-auto"
             >
-              v{version}
-            </Link>
+              <Link href="/changelog">
+                v{version}
+              </Link>
+            </Button>
           </div>
         </div>
       </body>

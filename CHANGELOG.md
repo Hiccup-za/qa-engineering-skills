@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-01-25
+
+### Added
+- `create-test-plan` command for ISTQB Foundation skill to create comprehensive test plans following ISTQB standards
+
+### Changed
+- Updated README with installation instructions and skills overview
+- Enhanced ISTQB Foundation skill documentation to include command workflows
+- Improved homepage UI with installation code snippet and skills.sh link
+- Improved layout footer styling with button component
+- Cleaned up .gitignore comments and organization
+
 ## [0.5.1] - 2026-01-25
 
 ### Changed
