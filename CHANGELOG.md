@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.11.1] - 2026-02-07
+
+### Changed
+- Enhanced install badge styling with improved visibility and contrast
+
 ## [0.11.0] - 2026-01-25
 
 ### Added

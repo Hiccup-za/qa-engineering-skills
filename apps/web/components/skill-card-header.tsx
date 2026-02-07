@@ -23,7 +23,7 @@ export function SkillCardHeader({
         </div>
         <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
           {installs && installs > 0 && (
-            <Badge variant="outline" className="flex items-center gap-1">
+            <Badge variant="outline" className="flex items-center gap-1 border-2 font-semibold bg-white text-foreground dark:bg-white dark:text-black">
               <Activity className="h-3 w-3" />
               {installs}
             </Badge>
