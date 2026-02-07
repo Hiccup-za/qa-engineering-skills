@@ -5,12 +5,12 @@ import { Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-interface CopyableCodeProps {
+interface CopyableCodeProps extends React.HTMLAttributes<HTMLDivElement> {
   code: string;
   className?: string;
 }
 
-export function CopyableCode({ code, className }: CopyableCodeProps) {
+export function CopyableCode({ code, className, ...props }: CopyableCodeProps) {
   const [copied, setCopied] = React.useState(false);
 
   const handleCopy = async () => {
@@ -24,9 +24,9 @@ export function CopyableCode({ code, className }: CopyableCodeProps) {
   };
 
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("relative", className)} data-testid="copyableCode" {...props}>
       <pre className="overflow-x-auto rounded-md border border-border bg-muted/50 px-4 py-3 font-mono text-sm shadow-sm pr-12">
-        <code>{code}</code>
+        <code data-testid="copyableCodeText">{code}</code>
       </pre>
       <Button
         variant="ghost"
@@ -34,6 +34,7 @@ export function CopyableCode({ code, className }: CopyableCodeProps) {
         className="absolute right-2 top-2 h-7 w-7 p-0"
         onClick={handleCopy}
         aria-label="Copy code"
+        data-testid="copyableCodeButton"
       >
         {copied ? (
           <Check className="h-3.5 w-3.5 text-green-600" />

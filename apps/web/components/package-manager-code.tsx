@@ -24,23 +24,23 @@ export function PackageManagerCode({ packageName, className }: PackageManagerCod
   };
 
   return (
-    <Tabs defaultValue="bun" className={className}>
+    <Tabs defaultValue="bun" className={className} data-testid="packageManagerTabs">
       <TabsList>
-        <TabsTrigger value="bun">Bun</TabsTrigger>
-        <TabsTrigger value="npm">NPM</TabsTrigger>
-        <TabsTrigger value="pnpm">PNPM</TabsTrigger>
-        <TabsTrigger value="yarn">Yarn</TabsTrigger>
+        <TabsTrigger value="bun" data-testid="packageManagerTab-bun">Bun</TabsTrigger>
+        <TabsTrigger value="npm" data-testid="packageManagerTab-npm">NPM</TabsTrigger>
+        <TabsTrigger value="pnpm" data-testid="packageManagerTab-pnpm">PNPM</TabsTrigger>
+        <TabsTrigger value="yarn" data-testid="packageManagerTab-yarn">Yarn</TabsTrigger>
       </TabsList>
-      <TabsContent value="bun">
+      <TabsContent value="bun" data-testid="packageManagerContent-bun">
         <CopyableCode code={getCommand("bun")} className="w-fit" />
       </TabsContent>
-      <TabsContent value="npm">
+      <TabsContent value="npm" data-testid="packageManagerContent-npm">
         <CopyableCode code={getCommand("npm")} className="w-fit" />
       </TabsContent>
-      <TabsContent value="pnpm">
+      <TabsContent value="pnpm" data-testid="packageManagerContent-pnpm">
         <CopyableCode code={getCommand("pnpm")} className="w-fit" />
       </TabsContent>
-      <TabsContent value="yarn">
+      <TabsContent value="yarn" data-testid="packageManagerContent-yarn">
         <CopyableCode code={getCommand("yarn")} className="w-fit" />
       </TabsContent>
     </Tabs>

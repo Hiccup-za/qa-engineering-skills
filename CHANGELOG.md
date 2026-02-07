@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.11.2] - 2026-02-07
+
+### Changed
+- Added data-testid attributes to components for improved testability
+- Enhanced testing infrastructure across homepage, changelog page, header, footer, and skill card components
+
 ## [0.11.1] - 2026-02-07
 
 ### Changed

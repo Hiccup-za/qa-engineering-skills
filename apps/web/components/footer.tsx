@@ -21,25 +21,27 @@ export async function Footer() {
   const version = await getCurrentVersion();
 
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-border" data-testid="footer">
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex h-14 flex-wrap items-center gap-4">
           <Button
             asChild
             variant="outline"
             size="sm"
+            data-testid="footerVersionButton"
           >
             <Link href="/changelog">
-              <span className="font-mono text-xs">v{version}</span>
+              <span className="font-mono text-xs" data-testid="footerVersionText">v{version}</span>
             </Link>
           </Button>
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-muted-foreground" data-testid="footerAttribution">
             Built by{" "}
             <Link
               href="https://x.com/chriszeuch"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary font-medium hover:underline underline-offset-4 transition-all duration-300 hover:text-gradient-brand"
+              data-testid="footerAuthorLink"
             >
               @chriszeuch
             </Link>

@@ -59,24 +59,25 @@ export default async function ChangelogPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-brand-subtle">
-      <div className="px-6 py-12">
+    <main className="min-h-screen bg-gradient-brand-subtle" data-testid="changelogPage">
+      <div className="px-6 py-12" data-testid="changelogContainer">
         <div className="mx-auto flex max-w-3xl flex-col gap-6">
           <div className="flex flex-wrap items-center gap-3">
             <Button 
               asChild 
               variant="ghost" 
               size="sm"
+              data-testid="changelogBackButton"
             >
               <Link href="/">
                 <ArrowLeft className="h-4 w-4" />
               </Link>
             </Button>
-            <h1 className="text-3xl font-semibold tracking-tight">
+            <h1 className="text-3xl font-semibold tracking-tight" data-testid="changelogTitle">
               Changelog
             </h1>
           </div>
-          <div className="grid gap-6">
+          <div className="grid gap-6" data-testid="changelogSectionsGrid">
             {sections
               .map((section, index) => ({
                 ...section,
@@ -96,7 +97,7 @@ export default async function ChangelogPage() {
                 }
                 return b.index - a.index;
               })
-              .map((section) => {
+              .map((section, index) => {
                 const content = markdownContent(section.body);
                 // Only render sections that have content
                 if (!content.trim()) {
@@ -106,13 +107,14 @@ export default async function ChangelogPage() {
                   <Card 
                     key={section.title}
                     className="transition-all duration-300 hover:bg-gradient-brand-subtle hover:border-opacity-50"
+                    data-testid={`changelogSection-${index}`}
                   >
                     <CardHeader>
-                      <CardTitle className="text-xl">
+                      <CardTitle className="text-xl" data-testid="changelogSectionTitle">
                         {section.title}
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent data-testid="changelogSectionContent">
                       <div className="prose prose-sm dark:prose-invert max-w-none [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-muted [&_code]:text-foreground [&_code]:text-xs [&_code]:font-mono [&_pre]:hidden">
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}

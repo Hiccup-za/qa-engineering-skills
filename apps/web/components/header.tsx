@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" data-testid="header">
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex h-14 items-center justify-between">
           <Link
             href="/"
             className="flex items-center gap-2 text-lg font-semibold tracking-tight hover:opacity-80 transition-opacity"
+            data-testid="headerLogoLink"
           >
             <Image
               src="/qae-skills.png"
@@ -17,6 +18,7 @@ export function Header() {
               width={32}
               height={32}
               className="rounded-lg"
+              data-testid="headerLogoImage"
             />
             QA Engineering Skills
           </Link>
@@ -25,6 +27,7 @@ export function Header() {
               asChild
               variant="outline"
               size="sm"
+              data-testid="headerSkillsShButton"
             >
               <Link
                 href="https://skills.sh/Hiccup-za/qa-skills"
@@ -52,6 +55,7 @@ export function Header() {
               asChild
               variant="outline"
               size="sm"
+              data-testid="headerGithubButton"
             >
               <Link
                 href="https://github.com/Hiccup-za/qa-skills"
